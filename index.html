@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Minecraft Capes Community</title>
+  <link rel="icon" type="image/png" href="./logo.png">
+  <style>
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1c1c1c;
+  color: white;
+}
+
+header {
+  background: black;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  margin: 0;
+  color: #ff4d4d;
+  font-size: 24px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #B20000;
+}
+
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 10px;
+  gap: 20px;
+}
+
+.main-content {
+  flex: 2;
+}
+
+.sidebar {
+  flex: 1;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+section, .sidebar section {
+  background: #2c2c2c;
+  padding: 40px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+section h2 {
+  margin-top: 0;
+  color: #ff4d4d;
+}
+
+.admin-list img, .volunteer-list img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.admin-list img:hover, .volunteer-list img:hover {
+  transform: scale(1.1);
+}
+
+.popup-flex {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.popup-card {
+  background: #3c3c3c;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  width: 130px;
+}
+
+.popup-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  z-index: 999;
+  width: 90%;
+  max-width: 400px;
+}
+
+.popup button {
+  background: #B20000;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.popup button:hover {
+  background: #900000;
+}
+
+.news-item {
+  margin-bottom: 20px;
+}
+
+.news-item h3 {
+  margin: 5px 0;
+}
+
+.discord-join-btn {
+  display: inline-block;
+  background: #B20000;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.discord-join-btn:hover {
+  background: #900000;
+}
+
+p a {
+  color: #ff4d4d;
+}
+
+section div {
+  margin-bottom: 30px;
+}
+
+/* ✅ MOBILE RESPONSIVE STYLES */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-right: 0;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    margin: 5px 10px 0 0;
+  }
+
+  section, .sidebar section {
+    padding: 20px;
+  }
+
+  .popup-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .popup-card {
+    width: 100%;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="./logo.png" alt="Logo" style="width: 40px; height: 40px; margin-right: 10px;">
+      <h1>r/minecraftcapes</h1>
+    </div>
+    <nav>
+      <a href="#who">Who We Are</a>
+      <a href="#admins">Admins</a>
+      <a href="#scam">Scam Protection</a>
+      <a href="#news">News</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="main-content">
+      <section id="who">
+        <h2>Who We Are</h2>
+        <p>Old subreddit got deleted. Here we are again!</p>
+        <p>We are an independent Minecraft community focused on sharing and discussing Minecraft capes! We are <strong>not affiliated with Mojang or Microsoft</strong>.</p>
+      </section>
+
+      <section id="admins">
+        <div>
+            <h2>Admins</h2>
+            <div class="admin-list" id="admin-list"></div>
+        </div>
+        <div>
+            <h2>Volunteers</h2>
+            <div class="volunteer-list" id="volunteer-list"></div>  
+        </div>
+      </section>
+
+      <section id="scam">
+        <h2>Scam Protection</h2>
+        <h3>ScamTrust</h3>
+        <p>ScamTrust Is a Bot Services developer by our admin golden. It's a scammer database with a report system and auto-banning on Discord and all connected subreddits.</p>
+        <hr>
+        <h3>Hylist</h3>
+        <p>We get the latest scammer announcements from <a href="https://hylist.xyz/" target="_blank">Hylist</a></p>
+        <hr>
+        <h3>Admin</h3>
+        <p>Our <a href="#admins">admins</a> check the community constantly and take action agains unwanted users!</p>
+    </section>
+
+      <section id="news">
+        <h2>Latest News</h2>
+        <div class="news-item">
+          <h3>July 2025 Update</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus laoreet semper erat ut laoreet.</p>
+        </div>
+        <div class="news-item">
+          <h3>June 2025 Announcement</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at massa sed sapien accumsan viverra.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="sidebar">
+      <section>
+        <h2>Reddit</h2>
+        <p>Visit our subreddit:</p>
+        <a href="https://www.reddit.com/r/minecraftcapes2/" target="_blank" class="discord-join-btn">r/minecraftcapes2</a>
+      </section>
+
+      <section id="discord-widget" style="width: 100%; margin-top: 20px;">
+        <div style="background: black; padding: 10px; display: flex; align-items: center;">
+          <img src="./logo.png" alt="Cape Logo" style="width: 32px; height: 32px; margin-right: 10px; border-radius: 4px;">
+          <h3 id="widget-title" style="margin: 0; font-size: 16px; color: white;">Loading...</h3>
+        </div>
+        <div style="background: #2c2c2c; padding: 10px;">
+          <p id="member-count" style="margin: 5px 0;">Loading online members...</p>
+          <div id="member-list" style="max-height: 150px; overflow-y: auto;">
+            <p>Loading members...</p>
+          </div>
+          <a id="join-btn" href="#" target="_blank" class="discord-join-btn" style="position: relative; left: 0; bottom: 0;">Join Server</a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Admin popup -->
+  <div id="popup" class="popup">
+    <center><h2 id="popuptitle">Admin Info</h2></center>
+    <div id="popup-content"></div>
+    <center><button onclick="closePopup()">Close</button></center>
+  </div>
+
+  <script>
+    // Admin data
+    const admins = [
+      {
+        display: "Thorfinn",
+        discord: "onetapinyourarea",
+        dpfp: "https://www.minecraftcapes.co.uk/img/admins/admin1.png",
+        reddit: "Bit_unlock",
+        rpfp: "https://preview.redd.it/snoovatar/avatars/6bc50d0f-c11e-4f45-9402-b0d5868c64b3-headshot.png?width=128&height=128&auto=webp&s=fbf2193f4bc4ec631baa658ffe0b8c38d3b78239"
+      },
+      {
+        display: "golden",
+        discord: "goldenboys2011",
+        dpfp: "https://cdn.discordapp.com/widget-avatars/DAcb0cVLbLszlwdILbssMSwZs3SSfxsYnCnsV1Am0sc/OEsMM7BjzvUggNFwbriVT58luTTHod3wp1Gclb9M-maOit7PHQIVl0_FCxKmaaojCjCR5BYDUSXxTpa1y1wLKrAyHlUi_aesoP0ODAOszWOJxMdYxT40OrffwcXW6zcZRoMut6YS0-yNbw",
+        reddit: "goldenboys2011",
+        rpfp: "https://styles.redditmedia.com/t5_6g5715/styles/profileIcon_1n3vn622myv91.jpg?width=256&height=256&frame=1&auto=webp&crop=&s=6a1393901591f1920c72c1b040903899a9c99085"
+      },
+      {
+        display: "Skye",
+        discord: "hengrove",
+        dpfp: "https://www.minecraftcapes.co.uk/img/admins/admin2.png",
+        reddit: "femininal",
+        rpfp: "https://styles.redditmedia.com/t5_8hcaev/styles/profileIcon_snoo-nftv2_bmZ0X2VpcDE1NToxMzdfZWI5NTlhNzE1ZGZmZmU2ZjgyZjQ2MDU1MzM5ODJjNDg1OWNiMTRmZV80OTA4OTQ_rare_b9bb6f00-9b96-4d46-b10d-c55bb7b2b14f-headshot.png?width=128&height=128&frame=1&auto=webp&crop=&s=af8e85e1d8002bca65dbbee1370607b02799a4a3"
+      },
+
+    ];
+
+    const volunteers = [
+        {
+            display: "Jamie1",
+            discord: "jamie1_35124",
+            dpfp: "https://www.minecraftcapes.co.uk/img/admins/admin2.png",
+            volunteer: "Game Snooper"    
+        },
+    ] 
+
+    const adminList = document.getElementById("admin-list");
+    admins.forEach((admin, index) => {
+      const img = document.createElement("img");
+      img.src = admin.dpfp;
+      img.alt = admin.display;
+      img.addEventListener("click", () => showPopup(index));
+      adminList.appendChild(img);
+    });
+
+    function showPopup(index) {
+      const popuptitle = document.getElementById("popuptitle");
+      popuptitle.innerText = "Admin Info"
+      const admin = admins[index];
+      const popupContent = document.getElementById("popup-content");
+      popupContent.innerHTML = `
+    <center><h3>${admin.display}</h3></center>
+    <div class="popup-flex">
+      <div class="popup-card">
+        <h4>Discord</h4>
+        <img src="${admin.dpfp}" alt="Discord" />
+        <p>${admin.discord}</p>
+      </div>
+      <div class="popup-card">
+        <h4>Reddit</h4>
+        <img src="${admin.rpfp}" alt="Reddit" />
+        <p>${admin.reddit}</p>
+      </div>
+    </div>
+      `;
+      document.getElementById("popup").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    const volunteerList = document.getElementById("volunteer-list");
+    volunteers.forEach((volunteer, index) => {
+      const img = document.createElement("img");
+      img.src = volunteer.dpfp;
+      img.alt = volunteer.display;
+      img.addEventListener("click", () => showVPopup(index));
+      volunteerList.appendChild(img);
+    });
+
+    function showVPopup(index) {
+      const popuptitle = document.getElementById("popuptitle");
+      popuptitle.innerText = "Volunteer Info"
+      const volunteer = volunteers[index];
+      const popupContent = document.getElementById("popup-content");
+      popupContent.innerHTML = `
+    <center><h3>${volunteer.display}</h3></center>
+    <center><h4>${volunteer.volunteer}</h4></center>
+    <div class="popup-flex">
+      <div class="popup-card">
+        <h4>Discord</h4>
+        <img src="${volunteer.dpfp}" alt="Discord" />
+        <p>${volunteer.discord}</p>
+      </div>
+    </div>
+      `;
+      document.getElementById("popup").style.display = "block";
+    }
+
+    // Discord widget
+    fetch("https://discord.com/api/guilds/1378519415565320212/widget.json")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("widget-title").textContent = data.name;
+        document.getElementById("member-count").textContent = `Online: ${data.presence_count}`;
+        document.getElementById("join-btn").href = data.instant_invite;
+
+        const memberList = document.getElementById("member-list");
+        memberList.innerHTML = data.members.map(member => `
+          <div style="display: flex; align-items: center; margin-bottom: 6px;">
+            <img src="${member.avatar_url}" alt="${member.username}" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">
+            <span>${member.username}${member.bot ? ' [BOT]' : ''}</span>
+          </div>
+        `).join('');
+      })
+      .catch(error => {
+        document.getElementById("widget-title").textContent = "Failed to load";
+        document.getElementById("member-count").textContent = "Could not load members.";
+        document.getElementById("member-list").innerHTML = `<p style="color: #ff4d4d;">Error loading widget</p>`;
+        console.error(error);
+      });
+  </script>
+
+</body>
+</html>
