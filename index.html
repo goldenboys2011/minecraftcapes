@@ -2,18 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Minecraft Capes Community</title>
   <link rel="icon" type="image/png" href="./logo.png">
+  
   <style>
-html {
-  scroll-behavior: smooth;
+    :root {
+  --accent: #ff4d4d;
+  --accent-dark: #B20000;
+  --bg: #1c1c1c;
+  --bg-light: #2c2c2c;
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #1c1c1c;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
   color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
 }
 
 header {
@@ -27,12 +44,17 @@ header {
 
 header h1 {
   margin: 0;
-  color: #ff4d4d;
+  color: var(--accent);
   font-size: 24px;
 }
 
 header img {
   border-radius: 30%;
+}
+
+nav {
+  display: flex;
+  align-items: center;
 }
 
 nav a {
@@ -43,7 +65,17 @@ nav a {
 }
 
 nav a:hover {
-  color: #B20000;
+  color: var(--accent-dark);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  margin-left: auto;
 }
 
 .container {
@@ -65,20 +97,22 @@ nav a:hover {
   height: fit-content;
 }
 
-section, .sidebar section {
-  background: #2c2c2c;
+.sidebar {
+  flex: 1;
+  width: 100%;
+}
+
+section,
+.sidebar section {
+  background: var(--bg-light);
   padding: 40px;
   margin-bottom: 30px;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px var(--shadow);
 }
 
-section h2 {
-  margin-top: 0;
-  color: #ff4d4d;
-}
-
-.admin-list img, .volunteer-list img {
+.admin-list img,
+.volunteer-list img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -88,7 +122,8 @@ section h2 {
   transition: transform 0.2s;
 }
 
-.admin-list img:hover, .volunteer-list img:hover {
+.admin-list img:hover,
+.volunteer-list img:hover {
   transform: scale(1.1);
 }
 
@@ -121,17 +156,17 @@ section h2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #2c2c2c;
+  background: var(--bg-light);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
   z-index: 999;
   width: 90%;
   max-width: 400px;
 }
 
 .popup button {
-  background: #B20000;
+  background: var(--accent-dark);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -154,7 +189,7 @@ section h2 {
 
 .discord-join-btn {
   display: inline-block;
-  background: #B20000;
+  background: var(--accent-dark);
   color: white;
   padding: 6px 12px;
   border-radius: 4px;
@@ -167,55 +202,108 @@ section h2 {
 }
 
 p a {
-  color: #ff4d4d;
+  color: var(--accent);
 }
 
 section div {
   margin-bottom: 30px;
 }
 
-/* ✅ MOBILE RESPONSIVE STYLES */
+section h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.admin-list .volunteer-list img {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+section p {
+  margin-bottom: 20px;
+}
+
+section hr {
+  margin: 20px 0;
+}
+
+.sidebar section h3 {
+    margin-top:0;
+    margin-bottom: 0;
+}
+
+section h2 {
+  margin-bottom: 10px;
+  margin-top: 0;
+  color: var(--accent);
+}
+
+/* Mobile adjustments */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
+    padding-bottom: 80px;
   }
 
-  .main-content {
-    margin-right: 0;
-  }
-
+  .main-content,
   .sidebar {
-    position: static;
     width: 100%;
-    margin-top: 0;
   }
 
-  header {
-    flex-direction: column;
-    align-items: flex-start;
+  .menu-toggle {
+    display: block;
   }
 
   nav {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: black;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 70px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+  }
+
+  nav.open {
+    transform: translateX(0);
   }
 
   nav a {
-    margin: 5px 10px 0 0;
+    padding: 15px 25px;
+    margin: 0;
+    width: 100%;
   }
 
-  section, .sidebar section {
+  nav a:hover {
+    background: var(--bg-light);
+    color: var(--accent);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 20px;
+  }
+
+  .sidebar section {
     padding: 20px;
+  }
+
+  .popup {
+    max-width: 95%;
+  }
+
+  .popup-card {
+    width: 100%;
   }
 
   .popup-flex {
     flex-direction: column;
     align-items: center;
-  }
-
-  .popup-card {
-    width: 100%;
   }
 }
 
@@ -228,7 +316,8 @@ section div {
       <img src="./logo.png" alt="Logo" style="width: 40px; height: 40px; margin-right: 10px;">
       <h1>r/minecraftcapes</h1>
     </div>
-    <nav>
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+    <nav id="nav-links">
       <a href="#who">Who We Are</a>
       <a href="#admins">Admins</a>
       <a href="#scam">Scam Protection</a>
@@ -261,7 +350,7 @@ section div {
         <p>ScamTrust Is a Bot Services developer by our admin golden. It's a scammer database with a report system and auto-banning on Discord and all connected subreddits.</p>
         <hr>
         <h3>Hylist</h3>
-        <p>We get the latest scammer announcements from <a href="https://hylist.xyz/" target="_blank">Hylist</a></p>
+        <p>We get the latest scammer announcements from <a href="https://hylist.xyz/" target="_blank">Hylist</a>!</p>
         <hr>
         <h3>Admin</h3>
         <p>Our <a href="#admins">admins</a> check the community constantly and take action agains unwanted users!</p>
@@ -303,11 +392,11 @@ section div {
     </div>
   </div>
 
-  <!-- Admin popup -->
-  <div id="popup" class="popup">
+
+  <div class="popup" id="popup">
     <center><h2 id="popuptitle">Admin Info</h2></center>
     <div id="popup-content"></div>
-    <center><button onclick="closePopup()">Close</button></center>
+    <center><button onclick="document.getElementById('popup').style.display='none'">Close</button></center>
   </div>
 
   <script>
@@ -420,7 +509,7 @@ section div {
 
         const memberList = document.getElementById("member-list");
         memberList.innerHTML = data.members.map(member => `
-          <div style="display: flex; align-items: center; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; margin-bottom: 2px;">
             <img src="${member.avatar_url}" alt="${member.username}" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px;">
             <span>${member.username}${member.bot ? ' [BOT]' : ''}</span>
           </div>
@@ -434,5 +523,10 @@ section div {
       });
   </script>
 
+  <script>
+    document.getElementById("menu-toggle").onclick = () => {
+      document.getElementById("nav-links").classList.toggle("open");
+    };
+  </script>
 </body>
 </html>
